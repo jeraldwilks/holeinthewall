@@ -15,11 +15,6 @@ export default function AuthProvider({ children }) {
   const login = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // if (userCred) {
-      //   console.log("Logged in!!", userCred.user);
-      // } else {
-      //   console.log("Login failed!");
-      // }
     } catch (ex) {
       console.log("AUTH FAILURE!", ex.message);
       return "Invalid login";
