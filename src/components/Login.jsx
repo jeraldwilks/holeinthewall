@@ -21,7 +21,6 @@ export default function Login() {
   const [error, setError] = useState();
   const { login, user } = useAuth();
   const nav = useNavigate();
-  //   console.log(user);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

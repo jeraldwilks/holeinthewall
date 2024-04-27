@@ -2,7 +2,6 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { useAuth } from "../providers/AuthProvider";
 import Login from "./Login.jsx";
-// import MyAppBar from "./MyAppBar";
 
 const ProtectedRoute = () => {
   const { user, loading } = useAuth();
@@ -14,7 +13,6 @@ const ProtectedRoute = () => {
   } else {
     return (
       <>
-        {/* <MyAppBar /> */}
         <Outlet />
       </>
     );
