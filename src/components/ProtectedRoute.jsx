@@ -12,8 +12,10 @@ const ProtectedRoute = () => {
       </>
     );
   }
-  if (!user || !isAdmin) {
+  if (!user) {
     return <Login />;
+  } else if (!isAdmin) {
+    <p>Not Authorized</p>;
   } else {
     return (
       <>
