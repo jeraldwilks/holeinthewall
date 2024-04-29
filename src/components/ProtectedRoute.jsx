@@ -4,11 +4,11 @@ import { useAuth } from "../providers/AuthProvider";
 import Login from "./Login.jsx";
 
 const ProtectedRoute = () => {
-  const { user, loading } = useAuth();
+  const { user, isAdmin, loading } = useAuth();
   if (loading) {
     return <div>Loading...</div>;
   }
-  if (!user) {
+  if (!user || !isAdmin) {
     return <Login />;
   } else {
     return (

@@ -10,6 +10,7 @@ export function useAuth() {
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState();
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const login = async (email, password) => {
@@ -26,8 +27,13 @@ export default function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       setUser(user);
+      const adminStatus = await fetch(
+        "https://checkadmin-x7v2pbe4eq-nn.a.run.app?email=" + user.email
+      );
+      const data = await adminStatus.json();
+      setIsAdmin(data);
       setLoading(false);
     });
     return unsubscribe;
@@ -35,6 +41,7 @@ export default function AuthProvider({ children }) {
 
   const value = {
     user,
+    isAdmin,
     login,
     logout,
     loading,

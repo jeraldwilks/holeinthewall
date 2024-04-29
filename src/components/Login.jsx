@@ -13,23 +13,19 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAuth } from "../providers/AuthProvider";
-import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function Login() {
   const [error, setError] = useState();
   const { login, user } = useAuth();
-  const nav = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const response = await login(data.get("email"), data.get("password"));
     setError(response);
   };
-  if (user) {
-    nav("/dashboard");
-  }
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
