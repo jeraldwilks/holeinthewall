@@ -11,7 +11,7 @@ export function useAuth() {
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const login = async (email, password) => {
     try {
