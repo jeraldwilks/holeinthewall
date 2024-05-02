@@ -29,11 +29,15 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       setUser(user);
-      const adminStatus = await fetch(
-        "https://checkadmin-x7v2pbe4eq-nn.a.run.app?email=" + user.email
-      );
-      const data = await adminStatus.json();
-      setIsAdmin(data);
+      if (user) {
+        const adminStatus = await fetch(
+          "https://checkadmin-x7v2pbe4eq-nn.a.run.app?email=" + user.email
+        );
+        const data = await adminStatus.json();
+        setIsAdmin(data);
+      } else {
+        setIsAdmin(false);
+      }
       setLoading(false);
     });
     return unsubscribe;
