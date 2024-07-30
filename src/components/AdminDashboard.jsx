@@ -5,6 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -21,6 +22,9 @@ import Typography from "@mui/material/Typography";
 import { useAuth } from "../providers/AuthProvider";
 import Test from "./Test";
 import NewReview from "./NewReview";
+import Reviews from "./Reviews";
+import Cities from "./Cities";
+import Countries from "./Countries";
 
 const drawerWidth = 240;
 
@@ -67,20 +71,28 @@ function AdminDashboard(props) {
             <ListItemText primary="New Review" />
           </ListItemButton>
         </ListItem>
-        <ListItem key="addCity" disablePadding>
-          <ListItemButton onClick={logout}>
+        <ListItem key="Reviews" disablePadding>
+          <ListItemButton onClick={() => setOpenPage(<Reviews />)}>
+            <ListItemIcon>
+              <FormatListBulletedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Reviews" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key="Cities" disablePadding>
+          <ListItemButton onClick={() => setOpenPage(<Cities />)}>
             <ListItemIcon>
               <LocationCityIcon />
             </ListItemIcon>
-            <ListItemText primary="Add City" />
+            <ListItemText primary="Cities" />
           </ListItemButton>
         </ListItem>
-        <ListItem key="addCountry" disablePadding>
-          <ListItemButton onClick={logout}>
+        <ListItem key="Countries" disablePadding>
+          <ListItemButton onClick={() => setOpenPage(<Countries />)}>
             <ListItemIcon>
               <PublicIcon />
             </ListItemIcon>
-            <ListItemText primary="Add Country" />
+            <ListItemText primary="Countries" />
           </ListItemButton>
         </ListItem>
         {/* {["Add Review", "Add City", "Add Country", "Drafts"].map(
@@ -145,7 +157,7 @@ function AdminDashboard(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            Admin Menu
           </Typography>
         </Toolbar>
       </AppBar>
