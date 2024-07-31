@@ -49,7 +49,7 @@ const Countries = () => {
           getRowId={(row) => row.DOC_ID}
           rows={countries}
           columns={columns}
-          disableSelectionOnClick
+          disableRowSelectionOnClick
         />
       </Box>
     </div>

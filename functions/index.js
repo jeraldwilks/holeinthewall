@@ -48,7 +48,23 @@ exports.getCountries = onRequest(
       ...doc.data(),
       DOC_ID: doc.id,
     }));
-    countriesData.sort();
     res.send(countriesData);
+  }
+);
+
+exports.getCities = onRequest(
+  { region: "northamerica-northeast1", cors: true },
+  async (req, res) => {
+    const docRef = db.doc("countries/" + req.query.country);
+    const citiesRef = db
+      .collection("cities")
+      .where("country", "==", docRef)
+      .orderBy("name");
+    const snapshot = await citiesRef.get();
+    let citiesData = snapshot.docs.map((doc) => ({
+      ...doc.data(),
+      DOC_ID: doc.id,
+    }));
+    res.send(citiesData);
   }
 );
