@@ -38,3 +38,17 @@ exports.checkAdmin = onRequest(
     res.send(true);
   }
 );
+
+exports.getCountries = onRequest(
+  { region: "northamerica-northeast1", cors: true },
+  async (req, res) => {
+    const countriesRef = db.collection("countries").orderBy("name");
+    const snapshot = await countriesRef.get();
+    let countriesData = snapshot.docs.map((doc) => ({
+      ...doc.data(),
+      DOC_ID: doc.id,
+    }));
+    countriesData.sort();
+    res.send(countriesData);
+  }
+);
