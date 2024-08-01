@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button } from "@mui/material";
+import { Box, Button, FormControl, TextField } from "@mui/material";
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
+  const [countryToEdit, setCountryToEdit] = useState(false);
 
   useEffect(() => {
     const getCountries = async () => {
@@ -31,9 +32,9 @@ const Countries = () => {
             variant="contained"
             color="primary"
             width="40"
-            // onClick={() => {
-            //   editCountry(cellValues);
-            // }}
+            onClick={() => {
+              setCountryToEdit(cellValues.row);
+            }}
           >
             Edit
           </Button>
@@ -42,15 +43,39 @@ const Countries = () => {
     },
   ];
 
+  const submitEdit = () => {
+    console.log(countryToEdit);
+  };
+
   return (
     <div>
       <Box sx={{ height: 300, width: "100%" }}>
-        <DataGrid
-          getRowId={(row) => row.DOC_ID}
-          rows={countries}
-          columns={columns}
-          disableRowSelectionOnClick
-        />
+        {!countryToEdit ? (
+          <DataGrid
+            getRowId={(row) => row.DOC_ID}
+            rows={countries}
+            columns={columns}
+            editMode="row"
+            disableRowSelectionOnClick
+          />
+        ) : (
+          <FormControl>
+            Updated Country Name:
+            <TextField
+              type="text"
+              variant="outlined"
+              name="name"
+              value={countryToEdit.name}
+              onChange={(e) =>
+                setCountryToEdit({ ...countryToEdit, name: e.target.value })
+              }
+            />
+            <Button onClick={submitEdit} type="submit">
+              Save
+            </Button>
+            <Button onClick={() => setCountryToEdit(false)}>Cancel</Button>
+          </FormControl>
+        )}
       </Box>
     </div>
   );
